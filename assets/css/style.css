@@ -1,0 +1,123 @@
+:root {
+    --gameColor: rgb(125, 100, 205);
+    --secondaryColor: rgb(110, 90, 175);
+    --bought: rgb(185, 170, 235);
+    --notEnough: rgb(225, 90, 115);
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 100%;
+    min-height: 100%;
+    color: white;
+    scroll-behavior: smooth;
+    overflow: hidden;
+    user-select: none;
+}
+
+#gameWrapper {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--gameColor);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#cookieWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 30%;
+    background-color: var(--secondaryColor);
+}
+
+#cookie {
+    cursor: pointer;
+    transition: 0.2s ease;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    width: 350px;
+    height: 350px;
+}
+
+#cookie:hover {
+    transform: scale(1.02);
+}
+
+#shopWrapper {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 25%;
+    height: 100%;
+}
+
+#shop {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondaryColor);
+    padding: 25px;
+}
+
+#bulkBuy {
+    width: 100%;
+    height: 50px;
+}
+
+.pixelCookie {
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.center {
+    text-align: center;
+    margin: auto;
+}
+
+#clearCookies {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 101;
+    background-color: var(--itemColorSelected);
+    user-select: none;
+    margin: 10px;
+    width: 125px;
+    height: 50px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 5px;
+    transition: 0.2s ease;
+}
+
+#clearCookies:hover {
+    background-color: rgb(130, 110, 185);
+}

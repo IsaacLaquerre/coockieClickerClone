@@ -1,0 +1,74 @@
+:root {
+    --itemColor: rgb(90, 75, 145);
+    --itemColorSelected: rgb(95, 85, 155);
+}
+
+#shop .item {
+    width: calc(100% - 20px);
+    height: 75px;
+    background-color: var(--itemColor);
+    position: relative;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#shop .item:hover {
+    background-color: var(--itemColorSelected);
+}
+
+.item img {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    bottom: 0;
+    height: 75px;
+    margin: auto;
+}
+
+.item .itemInfo {
+    width: calc(100% - 75px);
+    line-height: 75px;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    bottom: 0;
+    height: 75px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    text-overflow: ellipsis;
+}
+
+.item .itemTitle {
+    font-size: 18pt;
+}
+
+.item .itemPrice {
+    max-width: 150px;
+    text-overflow: ellipsis;
+}
+
+.item .itemPrice::before {
+    content: "";
+    background-image: url("../images/cookie_pixelated.png");
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    transform: translateY(2.5px);
+    width: 15px;
+    height: 15px;
+}
+
+.item .itemOwned {
+    font-size: 11pt;
+    position: absolute;
+    bottom: 5px;
+    left: auto;
+    right: auto;
+    text-overflow: ellipsis;
+}
