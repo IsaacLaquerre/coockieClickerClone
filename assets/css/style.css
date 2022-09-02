@@ -1,6 +1,6 @@
 :root {
     --gameColor: rgb(125, 100, 205);
-    --secondaryColor: rgb(110, 90, 175);
+    --secondaryColor: rgb(95, 75, 160);
     --bought: rgb(185, 170, 235);
     --notEnough: rgb(225, 90, 115);
 }
@@ -119,5 +119,5 @@ body {
 }
 
 #clearCookies:hover {
-    background-color: rgb(130, 110, 185);
+    background-color: var(--itemColor);
 }

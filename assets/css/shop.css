@@ -1,6 +1,6 @@
 :root {
-    --itemColor: rgb(90, 75, 145);
-    --itemColorSelected: rgb(95, 85, 155);
+    --itemColor: rgb(75, 60, 120);
+    --itemColorSelected: rgb(115, 105, 180);
 }
 
 #shop .item {

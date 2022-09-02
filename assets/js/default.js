@@ -140,6 +140,7 @@ function clicked(event) {
     cookieCounter.innerHTML = cookies;
     localStorage.setItem("cookies", cookies);
     throwCookie({ x: event.clientX, y: event.clientY });
+    dropCookie();
 }
 
 function addCps() {
@@ -193,14 +194,16 @@ function dropCookie() {
     cookie.width = "50";
     cookie.style.opacity = 0.6;
     cookie.style.zIndex = 1;
+    var rotation = Math.floor(Math.random() * 360);
+    cookie.style.transform = "rotate(" + rotation + "deg)";
     cookie.style.filter = "brightness(0.8)";
     cookie.style.position = "absolute";
     cookie.style.left = random + "px";
     cookie.style.top = "-50px";
     document.getElementById("game").appendChild(cookie);
     var frames = [
-        { transform: "translate(0)" },
-        { transform: "translateY(350px)", opacity: 0.1 },
+        { transform: "translate(0) rotate(" + rotation + "deg)" },
+        { transform: "translateY(350px) rotate(" + rotation + "deg)", opacity: 0.1 },
     ];
     cookie.animate(frames, {
         duration: 1250,
