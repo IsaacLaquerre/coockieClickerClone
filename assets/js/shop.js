@@ -1,3 +1,5 @@
+var boughtAudio = new Audio("assets/audio/bought.mp3");
+
 function buy(item) {
     var element = document.getElementById(item);
     var shopItem = items.find(shopItem => shopItem.name === item.charAt(0).toUpperCase() + item.slice(1));
@@ -13,9 +15,11 @@ function buy(item) {
         setCps(cpsCount);
         localStorage.setItem("cps", cpsCount);
         element.animate(animations.bought.frames, animations.bought.options);
+        if (playSounds) boughtAudio.play();
     } else {
         element.animate(animations.notEnough.frames, animations.notEnough.options);
     }
+    checkAvailableItems();
 }
 
 function recalculatePrice(item) {

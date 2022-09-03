@@ -18,10 +18,16 @@
         <div id="clearCookies" onclick="setCookies(0); localStorage.setItem('cookies', 0);">Clear cookies</div>
         <div id="game">
             <div class="center" id="cookieWrapper">
-                <span class="center" style="font-size: 32pt; width: 100%; font-style: italic; margin-top: 25px; margin-bottom: 7.5px; background-color: rgba(0,0,0,0.25);">Cookie Clicker Clone</span>
-                <span class="center" id="cookieCounter" style="font-size: 25pt; width: 100%; font-style: italic; margin-top: 0; margin-bottom: 7.5px; background-color: rgba(0,0,0,0.25);">Cookies: <span id="cookieCount">0</span></span>
-                <span class="center" id="cpsCounter" style="font-size: 21pt; width: 100%; font-style: italic; margin-top: 0; margin-bottom: 0; background-color: rgba(0,0,0,0.25);">Per second: <span id="cpsCount">0</span></span>
+                <span class="center" style="font-size: 32pt; width: 100%; font-style: italic; margin-top: 25px; margin-bottom: 7.5px; z-index: 99; background-color: rgba(0,0,0,0.25);">Cookie Clicker Clone</span>
+                <span class="center" id="cookieCounter" style="font-size: 25pt; width: 100%; font-style: italic; margin-top: 0; margin-bottom: 7.5px; z-index: 99; background-color: rgba(0,0,0,0.25);">Cookies: <span id="cookieCount">0</span></span>
+                <span class="center" id="cpsCounter" style="font-size: 21pt; width: 100%; font-style: italic; margin-top: 0; margin-bottom: 0; z-index: 99; background-color: rgba(0,0,0,0.25);">Per second: <span id="cpsCount">0</span></span>
                 <img id="cookie" class="center" src="assets/images/cookie.png">
+                <div id="mute" title="Mute" onclick="mute(this.children[0]);">
+                    <img class="mute" src="assets/images/mute.svg">
+                </div>
+                <div id="animations" title="Disable animations" onclick="enableAnimations(this.children[0]);">
+                    <img class="enabled" src="assets/images/enableAnimations.svg">
+                </div>
             </div>
             <div id="shopWrapper">
                 <div id="shop">
@@ -40,9 +46,12 @@
     function onLoad() {
         document.getElementById("cookie").addEventListener("click", clicked);
         setUpShop();
+        getMuted();
+        getAnimations();
         getStoredCookies();
         getStoredCps();
         getStoredItems();
+        checkAvailableItems();
 
         setInterval(() => {
             addCps();

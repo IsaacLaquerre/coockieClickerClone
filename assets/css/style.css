@@ -87,6 +87,34 @@ body {
     height: 50px;
 }
 
+#mute {
+    position: absolute;
+    left: 90%;
+    bottom: 15px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+#mute img {
+    height: 40px;
+    width: 40px;
+}
+
+#animations {
+    position: absolute;
+    left: 80%;
+    bottom: 15px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+#animations img {
+    height: 40px;
+    width: 40px;
+}
+
 .pixelCookie {
     pointer-events: none;
     -webkit-user-drag: none;

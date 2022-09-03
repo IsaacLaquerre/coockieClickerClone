@@ -1,10 +1,25 @@
 var cookieCount = 0;
 var cpsCount = 0;
 var priceIncrease = 1.15;
+var playSounds = true;
+var animate = true;
+
+const clicks = [
+    new Audio("assets/audio/click1.mp3"),
+    new Audio("assets/audio/click2.mp3"),
+    new Audio("assets/audio/click3.mp3"),
+    new Audio("assets/audio/click4.mp3"),
+    new Audio("assets/audio/click5.mp3"),
+    new Audio("assets/audio/click6.mp3"),
+    new Audio("assets/audio/click7.mp3"),
+];
 
 const items = [
     { name: "Cursor", price: 15, basePrice: 15, cps: 0.1, owned: 0 },
-    { name: "Grandma", price: 100, basePrice: 100, cps: 1, owned: 0 }
+    { name: "Grandma", price: 100, basePrice: 100, cps: 1, owned: 0 },
+    { name: "Farm", price: 1100, basePrice: 1100, cps: 8, owned: 0 },
+    { name: "Mine", price: 12000, basePrice: 12000, cps: 47, owned: 0 },
+    { name: "Factory", price: 130000, basePrice: 130000, cps: 260, owned: 0 }
 ];
 
 const animations = {
@@ -45,6 +60,64 @@ const animations = {
     }
 };
 
+function mute(muteButton) {
+    switch (muteButton.classList[0]) {
+        case "mute":
+            playSounds = false;
+            muteButton.src = "assets/images/unmute.svg";
+            muteButton.classList.remove("mute");
+            muteButton.classList.add("unmute");
+            muteButton.parentElement.title = "Unmute";
+            localStorage.setItem("muteCookies", true);
+            break;
+        case "unmute":
+            playSounds = true;
+            muteButton.src = "assets/images/mute.svg";
+            muteButton.classList.remove("unmute");
+            muteButton.classList.add("mute");
+            muteButton.parentElement.title = "Mute";
+            localStorage.setItem("muteCookies", false);
+            break;
+        default:
+            break;
+    }
+}
+
+function enableAnimations(button) {
+    switch (button.classList[0]) {
+        case "enabled":
+            animate = false;
+            button.src = "assets/images/disableAnimations.svg";
+            button.classList.remove("enabled");
+            button.classList.add("disabled");
+            button.parentElement.title = "Enable animations";
+            localStorage.setItem("enableAnimations", false);
+            break;
+        case "disabled":
+            animate = true;
+            button.src = "assets/images/enableAnimations.svg";
+            button.classList.remove("disabled");
+            button.classList.add("enabled");
+            button.parentElement.title = "Disable animations";
+            localStorage.setItem("enableAnimations", true);
+            break;
+        default:
+            break;
+    }
+}
+
+function getMuted() {
+    var muted = localStorage.getItem("muteCookies");
+    if (muted) setMuted(muted);
+    else localStorage.setItem("muteCookies", false);
+}
+
+function getAnimations() {
+    var enableAnimations = localStorage.getItem("enableAnimations");
+    if (enableAnimations) setAnimations(enableAnimations);
+    else localStorage.setItem("enableAnimations", true);
+}
+
 function getStoredCookies() {
     var cookies = localStorage.getItem("cookies");
     if (cookies) setCookies(cookies);
@@ -62,6 +135,40 @@ function getStoredItems() {
         var storage = localStorage.getItem(items[i].name);
         if (storage) setBoughtItem(items[i].name, storage);
         else localStorage.setItem(items[i].name, 0);
+    }
+}
+
+function setMuted(value) {
+    var muteButton = document.getElementById("mute").children[0];
+    if (value === "true") {
+        playSounds = false;
+        muteButton.src = "assets/images/unmute.svg";
+        muteButton.classList.remove("mute");
+        muteButton.classList.add("unmute");
+        muteButton.parentElement.title = "Unmute";
+    } else {
+        playSounds = true;
+        muteButton.src = "assets/images/mute.svg";
+        muteButton.classList.remove("unmute");
+        muteButton.classList.add("mute");
+        muteButton.parentElement.title = "Mute";
+    }
+}
+
+function setAnimations(value) {
+    var button = document.getElementById("animations").children[0];
+    if (value === "true") {
+        animate = true;
+        button.src = "assets/images/enableAnimations.svg";
+        button.classList.remove("disabled");
+        button.classList.add("enabled");
+        button.parentElement.title = "Disable animations";
+    } else {
+        animate = false;
+        button.src = "assets/images/disableAnimations.svg";
+        button.classList.remove("enabled");
+        button.classList.add("disabled");
+        button.parentElement.title = "Enable animations";
     }
 }
 
@@ -131,6 +238,16 @@ function setUpShop() {
     }
 }
 
+function checkAvailableItems() {
+    var cookies = localStorage.getItem("cookies") || 0;
+    for (i in items) {
+        var item = document.getElementById(items[i].name.toLowerCase());
+        if (cookies >= items[i].price) {
+            item.classList.remove("unavailable");
+        } else item.classList.add("unavailable");
+    }
+}
+
 function clicked(event) {
     var cookie = document.getElementById("cookie");
     cookie.animate(animations.clicked.frames, animations.clicked.options);
@@ -141,6 +258,8 @@ function clicked(event) {
     localStorage.setItem("cookies", cookies);
     throwCookie({ x: event.clientX, y: event.clientY });
     dropCookie();
+    if (playSounds) clicks[Math.floor(Math.random() * clicks.length)].play();
+    checkAvailableItems();
 }
 
 function addCps() {
@@ -149,10 +268,12 @@ function addCps() {
         cookieCount = parseFloat(cookieCount) + parseFloat(cps);
         setCookies(cookieCount);
         localStorage.setItem("cookies", cookieCount);
+        checkAvailableItems();
     }
 }
 
 function throwCookie(coords) {
+    if (!animate) return;
     var cookie = document.createElement("img");
     cookie.classList.add("pixelCookie");
     cookie.src = "assets/images/cookie_pixelated.png";
@@ -187,6 +308,7 @@ function throwCookie(coords) {
 }
 
 function dropCookie() {
+    if (!animate) return;
     var cookie = document.createElement("img");
     var random = Math.floor(Math.random() * (window.innerWidth * 0.3 - 75));
     cookie.classList.add("pixelCookie");
@@ -203,10 +325,10 @@ function dropCookie() {
     document.getElementById("game").appendChild(cookie);
     var frames = [
         { transform: "translate(0) rotate(" + rotation + "deg)" },
-        { transform: "translateY(350px) rotate(" + rotation + "deg)", opacity: 0.1 },
+        { transform: "translateY(350px) rotate(" + rotation + "deg)", opacity: 0 },
     ];
     cookie.animate(frames, {
-        duration: 1250,
+        duration: 1300,
         iterations: 1
     });
     setTimeout(() => {
