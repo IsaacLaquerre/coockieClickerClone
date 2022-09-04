@@ -14,8 +14,11 @@
 </head>
 
 <body onload="onLoad();">
+    <div id="load">
+        <div class="loadSpinner center"></div>
+    </div>
     <div id="gameWrapper">
-        <div id="clearCookies" onclick="setCookies(0); localStorage.setItem('cookies', 0);">Clear cookies</div>
+        <div id="restart" onclick="restart();">Restart</div>
         <div id="game">
             <div class="center" id="cookieWrapper">
                 <span class="center" style="font-size: 32pt; width: 100%; font-style: italic; margin-top: 25px; margin-bottom: 7.5px; z-index: 99; background-color: rgba(0,0,0,0.25);">Cookie Clicker Clone</span>
@@ -31,11 +34,13 @@
             </div>
             <div id="shopWrapper">
                 <div id="shop">
-                    <div id="bulkBuy">
+                    <!-- div id="bulkBuy">
                         <div id="1x"></div>
                         <div id="10x"></div>
                         <div id="100x"></div>
-                    </div>
+                    </div -->
+                    <div id="upgrades"></div>
+                    <div id="items"></div>
                 </div>
             </div>
         </div>
@@ -46,18 +51,22 @@
     function onLoad() {
         document.getElementById("cookie").addEventListener("click", clicked);
         setUpShop();
-        getMuted();
-        getAnimations();
         getStoredCookies();
         getStoredCps();
+        getStoredCpc();
         getStoredItems();
-        checkAvailableItems();
+        getMuted();
+        getAnimations();
+
+        setTimeout(() => {
+            removeLoader();
+        }, 1000);
 
         setInterval(() => {
             addCps();
         }, 1000);
         setInterval(() => {
-            dropCookie();
+            if (cpsCount != 0) dropCookie();
         }, 1000 / cpsCount);
     }
 </script>

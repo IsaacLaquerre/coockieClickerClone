@@ -4,6 +4,44 @@
     --unavailable: rgb(85, 80, 100);
 }
 
+#upgrades {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    overflow-x: hidden;
+}
+
+#upgrades .upgrade {
+    width: 50px;
+    height: 50px;
+    border: 2px grey groove;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#upgrades .upgrade:not(.unavailable):hover {
+    background-color: var(--itemColorSelected);
+}
+
+.upgrade img {
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+#items {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow-y: auto;
+}
+
 #shop .item {
     width: calc(100% - 20px);
     height: 75px;
@@ -17,11 +55,11 @@
     transition: 0.2s ease;
 }
 
-#shop .item:hover {
+#shop .item:not(.unavailable):hover {
     background-color: var(--itemColorSelected);
 }
 
-#shop .item.unavailable {
+#shop div.unavailable {
     background-color: var(--unavailable);
     cursor: default;
 }

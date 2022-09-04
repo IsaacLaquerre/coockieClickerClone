@@ -15,6 +15,41 @@ body {
     scroll-behavior: smooth;
     overflow: hidden;
     user-select: none;
+    user-zoom: fixed;
+    z-index: 101;
+    background-color: var(--gameColor);
+}
+
+#load {
+    display: block;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--gameColor);
+    user-select: none;
+    position: relative;
+}
+
+#load .loadSpinner {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+}
+
+#load .loadSpinner:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
 }
 
 #gameWrapper {
@@ -129,7 +164,7 @@ body {
     margin: auto;
 }
 
-#clearCookies {
+#restart {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -146,6 +181,15 @@ body {
     transition: 0.2s ease;
 }
 
-#clearCookies:hover {
+#restart:hover {
     background-color: var(--itemColor);
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
